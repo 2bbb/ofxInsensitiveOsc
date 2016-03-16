@@ -23,8 +23,10 @@ got event as:
 
 ```
 void setup() {
-    receiver.setup(8888);
     ofAddListener(receiver.gotOscError, this, &ofApp::oscError);
+    if(!receiver.setup(8888)) {
+    	ofLogError() << "setup failured";
+    }
 }
 
 void oscError(std::string &what) {
@@ -33,6 +35,10 @@ void oscError(std::string &what) {
 ```
 
 ## Update History
+
+### 2016/03/17 ver 0.03 release
+
+* change return value of `setup` to bool. if `setup` got failure then return false.
 
 ### 2016/03/16 ver 0.02 release
 
