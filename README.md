@@ -8,7 +8,7 @@ this addon trashes broken packets with error messages.
 
 i think, this error handling is not best but, as better than app terminate.
 
-(maybe i will post PR or issue about this problem to openFrameworks community.)
+(i posted [PR](https://github.com/openframeworks/openFrameworks/pull/4998) about this problem to openFrameworks community.)
 
 ## Notice
 
