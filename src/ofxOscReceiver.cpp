@@ -61,6 +61,8 @@ ofxOscReceiver & ofxOscReceiver::operator=(const ofxOscReceiver & mom){
 
 void ofxOscReceiver::setup( int listen_port )
 {
+    ofAddListener(ofEvents().update, this, &ofxOscReceiver::handleError);
+    
     if( osc::UdpSocket::GetUdpBufferSize() == 0 ){
     	osc::UdpSocket::SetUdpBufferSize(65535);
     }
@@ -81,7 +83,14 @@ void ofxOscReceiver::setup( int listen_port )
 	listen_socket = std::move(new_ptr);
 
 	listen_thread = std::thread([this]{
-		listen_socket->Run();
+        while(listen_socket) {
+            try {
+                listen_socket->Run();
+            } catch(std::exception &e) {
+                std::string what(e.what());
+                errorChannel.send(what);
+            }
+        }
 	});
 
 	// detach thread so we don't have to wait on it before creating a new socket

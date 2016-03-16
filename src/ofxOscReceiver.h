@@ -72,7 +72,8 @@ public:
 
 	/// enabled broadcast capabilities (usually no need to call this, enabled by default)
 	void enableReuse();
-
+    
+    ofEvent<std::string> gotOscError;
 protected:
 	/// process an incoming osc message and add it to the queue
 	virtual void ProcessMessage( const osc::ReceivedMessage &m, const osc::IpEndpointName& remoteEndpoint );
@@ -97,5 +98,12 @@ private:
 
 	bool allowReuse;
 	int listen_port;
-
+    
+    ofThreadChannel<std::string> errorChannel;
+    void handleError(ofEventArgs &) {
+        std::string what;
+        while(errorChannel.tryReceive(what)) {
+            ofNotifyEvent(gotOscError, what);
+        }
+    }
 };
