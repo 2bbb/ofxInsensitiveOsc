@@ -16,7 +16,33 @@ i think, this error handling is not best but, as better than app terminate.
 
 ## How to use
 
-same as `ofxOsc`.
+basicly, same as `ofxOsc`.
+
+add 1 future.
+got event as:
+
+```
+void setup() {
+    receiver.setup(8888);
+    ofAddListener(receiver.gotOscError, this, &ofApp::oscError);
+}
+
+void oscError(std::string &what) {
+    ofLogWarning() << what;
+}
+```
+
+## Update History
+
+### 2016/03/16 ver 0.02 release
+
+* simplify.
+* add future: notify gotError event with error message.
+* post PR on [openFrameworks#4998](https://github.com/openframeworks/openFrameworks/pull/4998) without notify event. (maybe if occurs diff of API, will not merge while oF0.9.x) and, i can't get no.5000.
+
+### 2016/02/26 ver 0.01 release
+
+* first aid.
 
 ## License
 
