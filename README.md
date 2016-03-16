@@ -48,11 +48,15 @@ void oscError(std::string &what) {
 
 MIT License.
 
-## Author
+## Author (oscpack)
 
 * Ross Bencina 
 * rossb@audiomulch.com
 * Copyright (c) 2004
+
+## Authors (ofxOsc, and forked oscpack)
+
+* [oF developers](https://github.com/openframeworks/openFrameworks)
 
 ## Modify by
 
